@@ -18,6 +18,14 @@ const routes = [
         path: '',
         name: 'home',
         component: HomeView
+      },
+      {
+        path: 'products',
+        component: () => import('../views/front/ProductsView.vue')
+      },
+      {
+        path: 'cart',
+        component: () => import('../views/front/CartView.vue')
       }
     ]
   },
@@ -29,7 +37,8 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  linkActiveClass: 'active' // Bootstrap
 })
 
 export default router
