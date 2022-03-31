@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  props: ['temp', 'delProductModal'],
+  props: ['temp'],
   data () {
     return {
       tempProduct: {

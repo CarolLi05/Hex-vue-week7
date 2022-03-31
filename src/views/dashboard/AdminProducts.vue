@@ -36,7 +36,7 @@
     </table>
     <!-- <Pagination :pages="pagination" @get-data="getData"></Pagination> -->
   </div>
-  <ProductModal :temp="temp" :is-new="isNew" @get-product ="getProducts" ref="productModal"></ProductModal>
+  <ProductModal :tempProductData="temp" :is-new="isNew" @get-data ="getData" ref="productModal"></ProductModal>
 </template>
 
 <script>
@@ -64,7 +64,7 @@ export default {
       this.$http.get(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products`)
         .then(res => {
           this.products = res.data.products
-          // this.pagination = res.data.pagination
+          this.pagination = res.data.pagination
         }).catch(err => {
           console.dir(err)
         })
@@ -73,17 +73,18 @@ export default {
       this.temp = item
     },
     openModal (status, product) {
-      if (status === 'isNew') { // 新增產品，temp 等於空的
+      if (status === 'isNew') {
         this.temp = {
           imagesUrl: []
         }
-        this.$ref.productModal.openModal()
+        this.$refs.productModal.openModal()
         this.isNew = true
-      } else if (status === 'edit') { // 編輯產品，temp 就是該產品
-        this.temp = { ...product }
+      } else if (status === 'edit') {
         // 當 temp.imagesUrl 有資料時就使用原本的資料，沒有的話就賦予一個陣列
-        this.imagesUrl = this.temp.imagesUrl ? this.temp.imagesUrl : []
-        this.$ref.productModal.openModal()
+        // this.imagesUrl = this.temp.imagesUrl ? this.temp.imagesUrl : []
+        // 深拷貝
+        this.temp = JSON.parse(JSON.stringify(product))
+        this.$refs.productModal.openModal()
         this.isNew = false
       } else if (status === 'delete') { // 刪除產品
         this.temp = { ...product }

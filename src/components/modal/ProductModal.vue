@@ -1,5 +1,5 @@
 <template>
-<div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+<div id="productModal" ref="modal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content border-0">
       <div class="modal-header bg-dark text-white">
@@ -104,12 +104,15 @@ export default {
         imagesUrl: [],
         imgPreviewURL: ''
       },
-      productModal: ''
+      modal: ''
     }
   },
   watch: {
-    tempProductData () {
-      this.tempData = this.tempProductData
+    tempProductData: {
+      handler () {
+        this.tempData = JSON.parse(JSON.stringify(this.tempProductData))
+      },
+      deep: true
     }
   },
   methods: {
@@ -125,7 +128,7 @@ export default {
         .then(res => {
           console.log(res)
           this.$emit('get-data') // 改成用 emit 由內往外取得資料
-          this.productModal.hide()
+          this.modal.hide()
         }).catch(err => {
           // 錯誤跳出通知
           // console.dir(err);
@@ -133,11 +136,12 @@ export default {
         })
     },
     openModal () {
-      this.productModal.show()
+      this.modal.show()
     }
   },
   mounted () {
-    this.productModal = new BsModal(this.$refs.modal)
+    this.modal = new BsModal(this.$refs.modal)
+    console.log(this.$refs.modal)
   }
 }
 </script>
