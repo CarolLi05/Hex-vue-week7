@@ -14,7 +14,7 @@
             <router-link class="nav-link" to="/cart">Cart</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin">Admin</router-link>
+            <router-link class="nav-link" to="/login">Admin</router-link>
           </li>
         </ul>
       </div>

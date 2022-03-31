@@ -20,6 +20,10 @@ const routes = [
         component: HomeView
       },
       {
+        path: 'login',
+        component: () => import('../views/front/LoginView.vue')
+      },
+      {
         path: 'products',
         component: () => import('../views/front/ProductsView.vue')
       },
