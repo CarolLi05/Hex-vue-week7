@@ -11,29 +11,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="product in products" :key="product.id">
+      <tr v-for="product in cartData.carts" :key="product.id">
         <td style="width: 200px">
-          <div :style="{ backgroundImage: `url(${product.imageUrl})` }" style="height: 100px; background-size: cover; background-position: center;"></div>
+          <div :style="{ backgroundImage: `url(${product.product.imageUrl})` }" style="height: 100px; background-size: cover; background-position: center;"></div>
         </td>
-        <td>{{ product.title }}</td>
+        <td>{{ product.product.title }}</td>
         <td>
           <!-- 原價及折扣價一樣時，只顯示單一價格 -->
-          <div class="h5" v-if="product.price === product.origin_price">
-            {{ product.price }} 元
+          <div class="h5" v-if="product.price === product.product.origin_price">
+            {{ product.product.price }} 元
           </div>
           <div v-else>
-            <del class="h6">原價 {{ product.origin_price }} 元</del>
-            <div class="h5">現在只要 {{ product.price }} 元</div>
+            <del class="h6">原價 {{ product.product.origin_price }} 元</del>
+            <div class="h5">現在只要 {{ product.product.price }} 元</div>
           </div>
         </td>
         <td>
           <div class="btn-group btn-group-sm">
-            <button type="button" class="btn btn-outline-secondary" @click="openProductModal(product.id)" :disabled="isLoadingItem === product.id">
-              <i class="fas fa-spinner fa-pulse" v-show="isLoadingItem === product.id" ></i>
+            <button type="button" class="btn btn-outline-secondary" @click="openProductModal(product.product_id)" :disabled="isLoadingItem === product.product_id">
+              <i class="fas fa-spinner fa-pulse" v-show="isLoadingItem === product.product_id" ></i>
               查看更多
             </button>
-            <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)" :disabled="isLoadingItem === product.id">
-              <i class="fas fa-spinner fa-pulse" v-show="isLoadingItem === product.id"></i>
+            <button type="button" class="btn btn-outline-danger" @click="addToCart(product.product_id)" :disabled="isLoadingItem === product.product_id">
+              <i class="fas fa-spinner fa-pulse" v-show="isLoadingItem === product.product_id"></i>
               加到購物車
             </button>
           </div>
@@ -58,11 +58,11 @@ export default {
     }
   },
   methods: {
-    getProducts () {
-      this.$http.get(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`)
+    getCart () {
+      this.$http.get(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`)
         .then((res) => {
-          // console.log(res);
-          this.products = res.data.products
+          console.log(res)
+          this.cartData = res.data.data
         })
         .catch((err) => {
           console.dir(err)
@@ -77,7 +77,7 @@ export default {
       this.isLoadingItem = id
       this.$http.post(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`, { data })
         .then((res) => {
-          // console.log(res);
+          console.log(res)
           alert('已成功加入購物車')
           // this.getCart() // 加入購物車後，再重新取得購物車內容
           // this.$refs.productModal.closeModal() // 使用 ref 關閉 modal
@@ -93,7 +93,7 @@ export default {
   },
   mounted () {
     // this.id = this.$route.params.id
-    this.getProducts()
+    this.getCart()
   }
 }
 </script>

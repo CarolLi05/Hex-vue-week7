@@ -11,6 +11,9 @@
             <router-link class="nav-link" to="/admin/products">Products</router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/admin/order">Order</router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/admin/coupon">Coupon</router-link>
           </li>
           <li class="nav-item">
