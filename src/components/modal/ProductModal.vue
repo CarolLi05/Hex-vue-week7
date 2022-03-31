@@ -137,6 +137,9 @@ export default {
     },
     openModal () {
       this.modal.show()
+    },
+    closeModal () {
+      this.modal.hide()
     }
   },
   mounted () {

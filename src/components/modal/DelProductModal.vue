@@ -1,5 +1,5 @@
 <template>
-  <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1" aria-labelledby="delProductModalLabel" aria-hidden="true">
+  <div id="delProductModal" ref="modal" class="modal fade" tabindex="-1" aria-labelledby="delProductModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content border-0">
           <div class="modal-header bg-danger text-white">
@@ -10,7 +10,7 @@
           </div>
           <div class="modal-body">
             是否刪除
-            <strong class="text-danger">{{ temp.title }}</strong> 商品(刪除後將無法恢復)。
+            <strong class="text-danger">{{ tempData.title }}</strong> 商品(刪除後將無法恢復)。
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
@@ -22,15 +22,25 @@
 </template>
 
 <script>
+import BsModal from 'bootstrap/js/dist/modal'
+
 export default {
-  props: ['temp'],
+  props: ['tempProductData'],
   data () {
     return {
-      tempProduct: {
+      tempData: {
         imagesUrl: [],
         imgPreviewURL: ''
       },
-      productModal: ''
+      modal: ''
+    }
+  },
+  watch: {
+    tempProductData: {
+      handler () {
+        this.tempData = JSON.parse(JSON.stringify(this.tempProductData))
+      },
+      deep: true
     }
   },
   methods: {
@@ -39,12 +49,22 @@ export default {
         .then(res => {
           console.log(res)
           this.$emit('get-data') // 改成用 emit 由內往外取得資料
-          this.delProductModal.hide()
+          this.modal.hide()
         }).catch(err => {
           // console.dir(err);
           alert(err.data.message)
         })
+    },
+    openModal () {
+      this.modal.show()
+    },
+    closeModal () {
+      this.modal.hide()
     }
+  },
+  mounted () {
+    this.modal = new BsModal(this.$refs.modal)
+    console.log(this.$refs.modal)
   }
 }
 </script>
