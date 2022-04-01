@@ -37,13 +37,13 @@
     <Pagination :pages="pagination" @get-data="getData"></Pagination>
   </div>
   <ProductModal :tempProductData="temp" :is-new="isNew" @get-data ="getData" ref="productModal"></ProductModal>
-  <DelProductModal :tempProductData="temp" ref="delModal"></DelProductModal>
+  <DelModal :tempProductData="temp" ref="delModal"></DelModal>
 </template>
 
 <script>
 import Pagination from '@/components/PagiNation'
 import ProductModal from '@/components/modal/ProductModal'
-import DelProductModal from '@/components/modal/DelProductModal'
+import DelModal from '@/components/modal/DelModal'
 
 export default {
   data () {
@@ -59,12 +59,11 @@ export default {
   components: {
     Pagination,
     ProductModal,
-    DelProductModal
+    DelModal
   },
   methods: {
-    getData () {
-      // page=1 /?page=${page}
-      this.$http.get(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products`)
+    getData (page = 1) {
+      this.$http.get(`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`)
         .then(res => {
           this.products = res.data.products
           this.pagination = res.data.pagination

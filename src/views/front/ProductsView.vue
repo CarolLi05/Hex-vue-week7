@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>Products List</h2>
+    <h2 class="py-3">Products List</h2>
     <!-- row 決定內層的數量 -->
     <div class="row row-cols-1 row-cols-lg-4 g-3">
       <div class="col" v-for="product in products" :key="product.id">

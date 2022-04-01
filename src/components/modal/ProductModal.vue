@@ -13,6 +13,10 @@
           <div class="col-sm-4">
             <div class="mb-2">
               <div class="mb-3">
+                <label for="imageUpload" class="form-label">上傳圖片</label>
+                <input type="file" class="form-control" placeholder="請輸入圖片連結" id="imageUpload" ref="imageUploadInput" @change="fileUpload">
+              </div>
+              <div class="mb-3">
                 <label for="imageUrl" class="form-label">輸入圖片網址</label>
                 <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempData.imageUrl">
               </div>
@@ -126,11 +130,10 @@ export default {
       // 因為所有資料都要在 data 裡，所以要用 data 帶剛剛新增產品的資料
       this.$http[method](url, { data: this.tempData })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.$emit('get-data') // 改成用 emit 由內往外取得資料
           this.modal.hide()
         }).catch(err => {
-          // 錯誤跳出通知
           // console.dir(err);
           alert(err.data.message)
         })
@@ -140,6 +143,26 @@ export default {
     },
     closeModal () {
       this.modal.hide()
+    },
+    fileUpload () {
+      // 取出上傳的檔案，為類陣列
+      const fileInput = this.$refs.imageUploadInput.files[0]
+      // 使用 formdata 格式 formData() 物件可以產生表單格式
+      const formData = new FormData()
+      // 使用 append 方法將欄位夾帶進來, 對應到file-to-upload 此欄位, 後面對應到要上傳的檔案
+      formData.append('file-to-upload', fileInput)
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/admin/upload/`
+      // this.status.fileUploading = true
+      this.$http.post(url, formData)
+        .then((res) => {
+          // this.status.fileUploading = false
+          console.log(res)
+          this.tempProduct.imageUrl = res.data.imageUrl
+        })
+        .catch((err) => {
+          // this.status.fileUploading = false
+          console.dir(err)
+        })
     }
   },
   mounted () {

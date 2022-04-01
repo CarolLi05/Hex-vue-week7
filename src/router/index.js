@@ -34,6 +34,10 @@ const routes = [
       {
         path: 'cart',
         component: () => import('../views/front/CartView.vue')
+      },
+      {
+        path: 'orderForm',
+        component: () => import('../views/front/OrderForm.vue')
       }
     ]
   },
@@ -44,6 +48,10 @@ const routes = [
       {
         path: 'products',
         component: () => import('../views/dashboard/AdminProducts.vue')
+      },
+      {
+        path: 'order',
+        component: () => import('../views/dashboard/AdminOrder.vue')
       },
       {
         path: 'coupon',
