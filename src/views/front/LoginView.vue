@@ -13,6 +13,7 @@
           <label for="password">Password</label>
         </div>
         <button class="btn btn-lg btn-dark w-100 my-3" type="submit">登入</button>
+        <button class="btn btn-lg btn-outline-dark w-100" type="submit">回到前台首頁</button>
       </form>
     </div>
   </div>

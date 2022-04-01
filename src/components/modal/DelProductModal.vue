@@ -64,7 +64,7 @@ export default {
   },
   mounted () {
     this.modal = new BsModal(this.$refs.modal)
-    console.log(this.$refs.modal)
+    // console.log(this.$refs.modal)
   }
 }
 </script>

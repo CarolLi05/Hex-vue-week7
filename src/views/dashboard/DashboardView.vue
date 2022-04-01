@@ -22,7 +22,7 @@ export default {
         this.$http.defaults.headers.common.Authorization = token
         this.$http.post(`${process.env.VUE_APP_API}/api/user/check`)
           .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             this.checkSuccess = true
           })
           .catch((err) => {

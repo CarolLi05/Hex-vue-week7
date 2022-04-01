@@ -34,14 +34,14 @@
             </tr>
         </tbody>
     </table>
-    <!-- <Pagination :pages="pagination" @get-data="getData"></Pagination> -->
+    <Pagination :pages="pagination" @get-data="getData"></Pagination>
   </div>
   <ProductModal :tempProductData="temp" :is-new="isNew" @get-data ="getData" ref="productModal"></ProductModal>
   <DelProductModal :tempProductData="temp" ref="delModal"></DelProductModal>
 </template>
 
 <script>
-// import Pagination from '@/components/PagiNation'
+import Pagination from '@/components/PagiNation'
 import ProductModal from '@/components/modal/ProductModal'
 import DelProductModal from '@/components/modal/DelProductModal'
 
@@ -57,7 +57,7 @@ export default {
     }
   },
   components: {
-    // Pagination
+    Pagination,
     ProductModal,
     DelProductModal
   },
