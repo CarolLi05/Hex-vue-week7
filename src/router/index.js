@@ -21,22 +21,27 @@ const routes = [
       },
       {
         path: 'login',
+        name: 'login',
         component: () => import('../views/front/LoginView.vue')
       },
       {
         path: 'products',
+        name: 'products',
         component: () => import('../views/front/ProductsView.vue')
       },
       {
         path: 'product/:id',
+        name: 'product',
         component: () => import('../views/front/ProductView.vue')
       },
       {
         path: 'cart',
+        name: 'cart',
         component: () => import('../views/front/CartView.vue')
       },
       {
         path: 'orderForm',
+        name: 'form',
         component: () => import('../views/front/OrderForm.vue')
       }
     ]
@@ -47,14 +52,17 @@ const routes = [
     children: [
       {
         path: 'products',
+        name: 'adminProducts',
         component: () => import('../views/dashboard/AdminProducts.vue')
       },
       {
         path: 'order',
+        name: 'adminOrder',
         component: () => import('../views/dashboard/AdminOrder.vue')
       },
       {
         path: 'coupon',
+        name: 'coupon',
         component: () => import('../views/dashboard/AdminCoupon.vue')
       }
     ]

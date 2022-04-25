@@ -3,6 +3,6 @@
 </template>
 
 <style lang="scss">
-@import "./assets/stylesheets/all"
+@import "./assets/stylesheets/all";
 
 </style>
